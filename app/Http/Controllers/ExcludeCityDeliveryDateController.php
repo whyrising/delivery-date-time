@@ -10,11 +10,12 @@ class ExcludeCityDeliveryDateController extends Controller
     function handle(Request $request, $cityId)
     {
         $cityDeliveryTimes = $this->getCityDeliveryTimes($cityId);
+        $data = $request->json()->all();
 
         $excludedCityDeliveryTimes = array();
         foreach ($cityDeliveryTimes as $cityDeliveryTime)
             $excludedCityDeliveryTimes[] = [
-                'delivery_date' => $request->input('delivery_date'),
+                'delivery_date' => $data['delivery_date'],
                 'city_delivery_time_id' => $cityDeliveryTime->id
             ];
 
