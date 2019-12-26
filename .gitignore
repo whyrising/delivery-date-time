@@ -18,3 +18,4 @@ yarn-error.log
 
 .idea/
 .idea_modules/
+public/debug.log

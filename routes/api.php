@@ -1,18 +1,19 @@
 <?php
 
-use Illuminate\Http\Request;
+$postRoutes = array(
+    'cities' => 'AddCityController',
+    'cities/{id}/delivery-times' => 'AddCityDeliveryTimeController',
+    'cities/{id}/excluded-delivery-times' => 'ExcludeCityDeliveryTimesController',
+    'cities/{id}/exclude-delivery-date' => 'ExcludeCityDeliveryDateController',
+    'delivery-times' => 'AddDeliveryTimeController',
+);
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+foreach ($postRoutes as $path => $controller)
+    addPostPath($path, $controller);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+function addPostPath($path, $controller): void
+{
+    Route::post($path, $controller . '@handle');
+}
+
+Route::get('cities/{id}/delivery-dates-times/{days_count}', 'CityDeliveryDateTimesController@handle');
